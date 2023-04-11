@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EfViewMysQL.Models.Mappings;
+using Microsoft.EntityFrameworkCore;
 
 namespace EfViewMysQL.Models
 {
@@ -9,6 +10,13 @@ namespace EfViewMysQL.Models
       public DatabaseContext(DbContextOptions options) : base(options) { }
 
       public DbSet<People> People { get; set; }
+      public DbSet<PeopleSexCount> PeopleSexCount { get; set; }
+
+      protected override void OnModelCreating(ModelBuilder modelBuilder)
+      {
+         modelBuilder.ApplyConfiguration(new PeopleMapping());
+         modelBuilder.ApplyConfiguration(new PeopleSexCountMapping());
+      }
 
       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
@@ -17,6 +25,8 @@ namespace EfViewMysQL.Models
                "server=localhost;user=root;password=senha;database=ef",
                new MySqlServerVersion(new Version(8, 0, 31))
             );
+
+         //optionsBuilder.LogTo(Console.WriteLine);
       }
    }
 }

@@ -1,14 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EfViewMysQL.Models.Mappings
 {
-   public sealed class PeopleMapping : IEntityTypeConfiguration<People>
+   public sealed partial class PeopleMapping : IEntityTypeConfiguration<People>
    {
       public void Configure(EntityTypeBuilder<People> builder)
       {
@@ -24,8 +19,8 @@ namespace EfViewMysQL.Models.Mappings
             .IsRequired();
 
          builder.Property(x => x.Sex)
-            .HasColumnName("sex")
-            .HasConversion<uint>();         
+            .HasColumnName("sex");
+            //.HasConversion<int>();
       }
    }
 }
